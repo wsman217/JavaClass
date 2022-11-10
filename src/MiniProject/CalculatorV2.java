@@ -62,11 +62,11 @@ public class CalculatorV2 extends Frame {
 
         // set Co-ordinates for Memory Buttons
         int y = TOPY + 2 * (HEIGHT + V_SPACE);
-        for (ButtonInfo info : memoryButtonInfos) {
+        /*for (ButtonInfo info : memoryButtonInfos) {
             CalcButton button = new CalcButton(tempX, y, WIDTH, HEIGHT, info.display, this, info.listener);
             button.setForeground(Color.RED);
             y += HEIGHT + V_SPACE;
-        }
+        }*/
 
         ButtonInfo[] specialButtonInfos = {
                 new ButtonInfo("Backspc", e -> {
@@ -111,7 +111,7 @@ public class CalculatorV2 extends Frame {
                 new ButtonInfo("0", e -> {
                     if (this.setClear) return;
                     this.displayLabel.setText(this.displayLabel.getText() + 0);
-                }),
+                })/*,
                 new ButtonInfo("+/-", e -> {
                     //TODO add the lambda for this.
                 }),
@@ -121,7 +121,7 @@ public class CalculatorV2 extends Frame {
                         this.setClear = false;
                     } else if (!this.displayLabel.getText().contains("."))
                         this.displayLabel.setText(this.displayLabel.getText() + ".");
-                })
+                })*/
         };
 
         //set Co-ordinates for Digit Buttons
@@ -141,7 +141,7 @@ public class CalculatorV2 extends Frame {
         }
 
         ButtonInfo[] operatorButtonInfos = {
-                new ButtonInfo("/", createOpActionListener('/')),
+                /*new ButtonInfo("/", createOpActionListener('/')),
                 new ButtonInfo("sqrt", e -> {
                     this.setClear = true;
                     try {
@@ -150,8 +150,17 @@ public class CalculatorV2 extends Frame {
                     } catch (ArithmeticException exc) {
                         this.displayLabel.setText("Divide by 0.");
                     }
+                }),*/
+                new ButtonInfo("cubrt", e -> {
+                    this.setClear = true;
+                    try {
+                        double tempd = Math.cbrt(Double.parseDouble(this.displayLabel.getText()));
+                        this.displayLabel.setText(getFormattedText(tempd));
+                    } catch (ArithmeticException exc) {
+                        this.displayLabel.setText("Divide by 0.");
+                    }
                 }),
-                new ButtonInfo("*", createOpActionListener('*')),
+                /*new ButtonInfo("*", createOpActionListener('*')),
                 new ButtonInfo("%", createOpActionListener('%')),
                 new ButtonInfo("-", createOpActionListener('-')),
                 new ButtonInfo("1/X", e -> {
@@ -163,7 +172,7 @@ public class CalculatorV2 extends Frame {
                         this.displayLabel.setText("Divide by 0.");
                     }
                 }),
-                new ButtonInfo("+", createOpActionListener('+')),
+                new ButtonInfo("+", createOpActionListener('+')),*/
                 new ButtonInfo("=", e -> {
                     this.setClear = true;
                     double temp = Double.parseDouble(this.displayLabel.getText());
@@ -205,7 +214,7 @@ public class CalculatorV2 extends Frame {
         index = 0;
         for (ButtonInfo info : operatorButtonInfos) {
             tempX += WIDTH + H_SPACE;
-            CalcButton button = new CalcButton(tempX, y, WIDTH, HEIGHT, info.display, this, info.listener);
+            CalcButton button = new CalcButton(tempX, y, WIDTH * 2, HEIGHT, info.display, this, info.listener);
             button.setForeground(Color.RED);
             if ((++index) % 2 == 0) {
                 tempX = opsX;
