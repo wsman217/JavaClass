@@ -216,7 +216,7 @@ public class CalculatorV2 extends Frame {
             tempX += WIDTH + H_SPACE;
             CalcButton button = new CalcButton(tempX, y, WIDTH * 2, HEIGHT, info.display, this, info.listener);
             button.setForeground(Color.RED);
-            if ((++index) % 2 == 0) {
+            if ((++index) % 1 == 0) {
                 tempX = opsX;
                 y += HEIGHT + V_SPACE;
             }
