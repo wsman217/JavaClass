@@ -9,13 +9,11 @@ public class CalculatorV2 extends Frame {
     final int FRAME_WIDTH = 325, FRAME_HEIGHT = 325;
     final int HEIGHT = 30, WIDTH = 30, H_SPACE = 10, V_SPACE = 10;
     final int TOPX = 30, TOPY = 50;
-
+    private final Label displayLabel = new Label("0", Label.RIGHT);
+    private final Label memLabel = new Label(" ", Label.RIGHT);
     private boolean setClear = true;
     private double number, memValue;
     private char op;
-
-    private final Label displayLabel = new Label("0", Label.RIGHT);
-    private final Label memLabel = new Label(" ", Label.RIGHT);
 
     public CalculatorV2(String frameText) {
         super(frameText);
@@ -160,6 +158,11 @@ public class CalculatorV2 extends Frame {
                         this.displayLabel.setText("Divide by 0.");
                     }
                 }),
+                new ButtonInfo("area", e -> {
+                    this.setClear = true;
+                    double area = Math.PI * Math.pow(Double.parseDouble(this.displayLabel.getText()), 2);
+                    this.displayLabel.setText(getFormattedText(area));
+                }),
                 /*new ButtonInfo("*", createOpActionListener('*')),
                 new ButtonInfo("%", createOpActionListener('%')),
                 new ButtonInfo("-", createOpActionListener('-')),
@@ -216,7 +219,7 @@ public class CalculatorV2 extends Frame {
             tempX += WIDTH + H_SPACE;
             CalcButton button = new CalcButton(tempX, y, WIDTH * 2, HEIGHT, info.display, this, info.listener);
             button.setForeground(Color.RED);
-            if ((++index) % 2 == 0) {
+            if ((++index) % 1 == 0) {
                 tempX = opsX;
                 y += HEIGHT + V_SPACE;
             }
@@ -231,6 +234,10 @@ public class CalculatorV2 extends Frame {
         setLayout(null);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new CalculatorV2("Calculator");
     }
 
     private ActionListener createDigitActionListener(int digit) {
@@ -253,10 +260,6 @@ public class CalculatorV2 extends Frame {
 
     private String getFormattedText(double temp) {
         return ("" + temp).lastIndexOf(".0") > 0 ? ("" + temp).substring(0, ("" + temp).length() - 2) : "" + temp;
-    }
-
-    public static void main(String[] args) {
-        new CalculatorV2("Calculator");
     }
 
     private record ButtonInfo(String display, ActionListener listener) {
